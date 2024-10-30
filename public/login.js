@@ -10,8 +10,13 @@ async function SubmitData () {
       body: JSON.stringify({
                             username: login.value,
                             password: pass.value,
-      })
-    }) 
+                            })
+    });
+    const str = response.url.split('/');
+    console.log(response);
+    if (response.status == 200) {
+      window.location.replace(str[0] + '//' + str[2] + '/');
+    }
   });
 }
 

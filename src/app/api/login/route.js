@@ -8,29 +8,35 @@ export async function POST(req) {
   try {
     var query = "SELECT password FROM users WHERE name='" + payload['username'] + "';";
     console.log(query);
-    var res = await pool.query(query);
-    console.log('Query result route: ', res.rows[0]['password']);
-    if (payload['password'] == res.rows[0]['password']) {
+    var result = await pool.query(query);
+    console.log('Query result route: ', result.rows[0]['password']);
+    if (payload['password'] == result.rows[0]['password']) {
       console.log('if enter');
-      const newUrl = new URL('/', req.url);
-      return NextResponse.redirect(newUrl);
-        //json(
-        //{ status: 200 }
-      //)
+      const response = NextResponse.json(
+        {message: 'successfull'},
+        {status: 200},
+      );
+      response.cookies.set('access-token', 'success');
+      return response;
+      NextResponse.json(
+        {message: 'successfull'},
+        {status: 200},
+      );
     }
     else {
-      console.log('Wrong credantials.')
+      console.log('Wrong credantials.');
       return NextResponse.json(
+        { message: 'wrong credantials' },
         { status: 400 }
       )
     }
   } catch (error) {
     console.log('Query error route: ', error);
     return NextResponse.json(
+      { message: 'some error' },
       { status: 300 }
     )
   } finally {
-
   }
 }
 
