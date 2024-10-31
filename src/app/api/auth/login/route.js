@@ -39,4 +39,9 @@ export async function POST(req) {
   } finally {
   }
 }
-
+export async function GET ( req, res ) {
+  return NextResponse.json(
+    {message: 'some get response'},
+    {status: 200}
+  );
+}

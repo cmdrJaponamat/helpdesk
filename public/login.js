@@ -4,7 +4,7 @@ async function SubmitData () {
   const button = document.querySelector('#Submit_input');
   button.addEventListener('click', async () => {
     console.log(login.value, ' ', pass.value);
-    const response = await fetch( '/api/login', {
+    const response = await fetch( '/api/auth/login', {
       method: 'POST',
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify({
